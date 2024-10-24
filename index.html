@@ -120,30 +120,16 @@
                 navigator.geolocation.getCurrentPosition(function(position) {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
-                    
-                    // Send data via POST request to backend server
-                    fetch('http://your-backend-url.com/send-email', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            message: message,
-                            latitude: latitude,
-                            longitude: longitude
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        // Hide the form and show the thank you message
-                        document.getElementById('locationForm').style.display = 'none';
-                        document.getElementById('thankYouMessage').style.display = 'block';
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
+                    const email = "aryasatyabauddha2@gmail.com"; 
+                    const subject = `${name} is reserving a seat!`;
+                    const body = `Here are my coordinates:\n\nLatitude: ${latitude}\nLongitude: ${longitude}\n\nMessage: ${message}\n\nSent with love! 💖`;
+
+                    // Send the email using mailto
+                    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+                    // Hide the form and show the thank you message
+                    document.getElementById('locationForm').style.display = 'none';
+                    document.getElementById('thankYouMessage').style.display = 'block';
                 });
             } else {
                 alert("Geolocation is not supported by this browser.");
